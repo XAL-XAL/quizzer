@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:quizzer/quiz.dart';
+
+Quiz quiz = Quiz();
 
 void main() => runApp(Quizzler());
 
@@ -10,7 +13,7 @@ class Quizzler extends StatelessWidget {
         backgroundColor: Colors.grey.shade900,
         body: SafeArea(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.0),
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: QuizPage(),
           ),
         ),
@@ -26,12 +29,6 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   List<Icon> score = [];
-  List<String> questions = [
-    'An elephant\'s heart can weigh up to 30 pounds',
-    'Elephants can jump',
-    'Octopuses have three hearts',
-    'Cows have one stomach with four different compartments'
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -39,15 +36,15 @@ class _QuizPageState extends State<QuizPage> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        const Expanded(
+        Expanded(
           flex: 5,
           child: Padding(
-            padding: EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                'j',
+                quiz.getQuestion(),
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 25.0,
                   color: Colors.white,
                 ),
@@ -57,7 +54,7 @@ class _QuizPageState extends State<QuizPage> {
         ),
         Expanded(
           child: Padding(
-            padding: EdgeInsets.all(15.0),
+            padding: const EdgeInsets.all(15.0),
             child: TextButton(
               child: const Text(
                 'True',
@@ -69,15 +66,25 @@ class _QuizPageState extends State<QuizPage> {
               style: TextButton.styleFrom(
                 backgroundColor: Colors.green,
               ),
-              onPressed: () {},
+              onPressed: () {
+                bool correct = quiz.getAnswer();
+                if (correct == true) {
+                  print('You got the right answer');
+                } else {
+                  print('You got the wrong answer');
+                }
+                setState(() {
+                  quiz.nextQuestion();
+                });
+              },
             ),
           ),
         ),
         Expanded(
           child: Padding(
-            padding: EdgeInsets.all(15.0),
+            padding: const EdgeInsets.all(15.0),
             child: TextButton(
-                child: Text(
+                child: const Text(
                   'False',
                   style: TextStyle(
                     color: Colors.white,
@@ -88,7 +95,17 @@ class _QuizPageState extends State<QuizPage> {
                   //hi
                   backgroundColor: Colors.red,
                 ),
-                onPressed: () {}),
+                onPressed: () {
+                  bool correct = quiz.getAnswer();
+                  if (correct == false) {
+                    print('You got the right answer');
+                  } else {
+                    print('You got the wrong answer');
+                  }
+                  setState(() {
+                    quiz.nextQuestion();
+                  });
+                }),
           ),
         ),
         Row(
