@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quizzer/quiz.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 Quiz quiz = Quiz();
 
@@ -29,6 +30,47 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   List<Icon> score = [];
+
+  void checkAnswer(bool userPickedAnswer) {
+    bool correct = quiz.getAnswer();
+
+    setState(() {
+      if (quiz.isFinished() == true) {
+        Alert(
+            context: context,
+            title: "Finished Quiz",
+            desc: "Flutter is awesome.",
+            buttons: [
+              DialogButton(
+                child: const Text(
+                  "Done",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                  ),
+                ),
+                onPressed: () => Navigator.pop(context),
+              )
+            ]).show();
+        quiz.reset();
+        score = [];
+      } else {
+        if (userPickedAnswer == correct) {
+          score.add(const Icon(
+            Icons.check,
+            color: Colors.green,
+          ));
+        } else {
+          score.add(const Icon(
+            Icons.close,
+            color: Colors.red,
+          ));
+        }
+        quiz.nextQuestion();
+        quiz.isFinished();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,15 +109,7 @@ class _QuizPageState extends State<QuizPage> {
                 backgroundColor: Colors.green,
               ),
               onPressed: () {
-                bool correct = quiz.getAnswer();
-                if (correct == true) {
-                  print('You got the right answer');
-                } else {
-                  print('You got the wrong answer');
-                }
-                setState(() {
-                  quiz.nextQuestion();
-                });
+                checkAnswer(true);
               },
             ),
           ),
@@ -96,15 +130,7 @@ class _QuizPageState extends State<QuizPage> {
                   backgroundColor: Colors.red,
                 ),
                 onPressed: () {
-                  bool correct = quiz.getAnswer();
-                  if (correct == false) {
-                    print('You got the right answer');
-                  } else {
-                    print('You got the wrong answer');
-                  }
-                  setState(() {
-                    quiz.nextQuestion();
-                  });
+                  checkAnswer(false);
                 }),
           ),
         ),

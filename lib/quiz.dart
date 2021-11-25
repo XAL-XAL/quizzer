@@ -18,7 +18,7 @@ class Quiz {
   ];
 
   void nextQuestion() {
-    if (_counter < _questionList.length - 1) {
+    if (_counter < _questionList.length) {
       _counter++;
     }
   }
@@ -29,5 +29,19 @@ class Quiz {
 
   bool getAnswer() {
     return _questionList[_counter].isCorrect;
+  }
+
+  bool isFinished() {
+    if (_counter == _questionList.length - 1) {
+      print("Finished Quiz");
+      return true;
+    } else {
+      print("Quiz not yet finished");
+      return false;
+    }
+  }
+
+  void reset() {
+    _counter = 0;
   }
 }
