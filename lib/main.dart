@@ -39,7 +39,7 @@ class _QuizPageState extends State<QuizPage> {
         Alert(
             context: context,
             title: "Finished Quiz",
-            desc: "Flutter is awesome.",
+            desc: "Press Done to Restart",
             buttons: [
               DialogButton(
                 child: const Text(

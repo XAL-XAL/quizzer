@@ -4,17 +4,16 @@ class Quiz {
   int _counter = 0;
 
   final List<Question> _questionList = [
-    Question(q: 'An elephant\'s heart can weigh up to 30 pounds', i: true),
-    Question(q: 'Elephants can jump', i: false),
-    Question(q: 'Octopuses have three hearts', i: true),
-    Question(
-        q: 'Cows have one stomach with four different compartments', i: true),
-    Question(q: '9 + 11 = 21', i: false),
-    Question(q: 'George Washington was the first president', i: true),
-    Question(q: 'Tom Cruise is dating Whitney Houston', i: false),
-    Question(q: 'Thanos is the son of a Celestial', i: true),
-    Question(q: 'An RTX 3090 graphics card is easy to acquire', i: false),
-    Question(q: 'GPU scalpers suck ):', i: true),
+    Question('An elephant\'s heart can weigh up to 30 pounds', true),
+    Question('Elephants can jump', false),
+    Question('Octopuses have three hearts', true),
+    Question('Cows have one stomach with four different compartments', true),
+    Question('9 + 11 = 21', false),
+    Question('George Washington was the first president', true),
+    Question('Tom Cruise is dating Whitney Houston', false),
+    Question('Thanos is the son of a Celestial', true),
+    Question('An RTX 3090 graphics card is easy to acquire', false),
+    Question('GPU scalpers suck ):', true),
   ];
 
   void nextQuestion() {
